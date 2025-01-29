@@ -1,6 +1,8 @@
 package com.pach.drugstore.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -22,10 +24,25 @@ public class Products {
 
     private String classification;
 
-    @ManyToOne
-    @JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
-    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "categoryId", nullable = false)
+    @JsonIgnoreProperties("products")
     private Categories categories;
+
+    public Products() {
+    }
+
+    public Products(String genericName, String brandName, String dosage, String description, String image, int price, String group, String classification, Categories categories) {
+        this.genericName = genericName;
+        this.brandName = brandName;
+        this.dosage = dosage;
+        this.description = description;
+        this.image = image;
+        this.price = price;
+        this.group = group;
+        this.classification = classification;
+        this.categories = categories;
+    }
 
     // Getters and Setters
     public Long getProductId() {
