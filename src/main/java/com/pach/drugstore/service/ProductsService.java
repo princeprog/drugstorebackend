@@ -1,6 +1,8 @@
 package com.pach.drugstore.service;
 
+import com.pach.drugstore.entity.Categories;
 import com.pach.drugstore.entity.Products;
+import com.pach.drugstore.repository.CategoriesRepo;
 import com.pach.drugstore.repository.ProductsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ public class ProductsService {
 
     @Autowired
     private ProductsRepo productsRepository;
+
+    @Autowired
+    private CategoriesRepo categoriesRepository;
 
     public Products saveProduct(Products product) {
         return productsRepository.save(product);
@@ -38,5 +43,10 @@ public class ProductsService {
 
     public void deleteProduct(Long id) {
         productsRepository.deleteById(id);
+    }
+
+    public Categories findCategoryById(Long id) {
+        Optional<Categories> category = categoriesRepository.findById(id);
+        return category.orElse(null);
     }
 }

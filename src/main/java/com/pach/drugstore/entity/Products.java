@@ -1,7 +1,5 @@
 package com.pach.drugstore.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -16,8 +14,13 @@ public class Products {
     private String brandName;
     private String dosage;
     private String description;
-    private String image;
+
+    @Lob
+    @Column(columnDefinition = "BLOB")
+    private byte[] image;
+
     private int price;
+    private int quantity;
 
     @Column(name = "product_group")
     private String group;
@@ -32,13 +35,14 @@ public class Products {
     public Products() {
     }
 
-    public Products(String genericName, String brandName, String dosage, String description, String image, int price, String group, String classification, Categories categories) {
+    public Products(String genericName, String brandName, String dosage, String description, byte[] image,int quantity, int price, String group, String classification, Categories categories) {
         this.genericName = genericName;
         this.brandName = brandName;
         this.dosage = dosage;
         this.description = description;
         this.image = image;
         this.price = price;
+        this.quantity = quantity;
         this.group = group;
         this.classification = classification;
         this.categories = categories;
@@ -85,11 +89,11 @@ public class Products {
         this.description = description;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
@@ -123,5 +127,13 @@ public class Products {
 
     public void setCategories(Categories categories) {
         this.categories = categories;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
