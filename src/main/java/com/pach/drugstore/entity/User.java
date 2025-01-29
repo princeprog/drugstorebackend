@@ -1,20 +1,14 @@
 package com.pach.drugstore.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
 @Table(name = "user")
-@JsonPropertyOrder({"userId", "firstname", "lastname", "email", "password", "phone"})
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
     private int userId;
 
     private String firstname;

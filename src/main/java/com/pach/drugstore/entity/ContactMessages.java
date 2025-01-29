@@ -1,22 +1,17 @@
 package com.pach.drugstore.entity;
 
-import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "contact_messages")
-@JsonPropertyOrder({"messageId", "userId", "subject", "message"})
 public class ContactMessages {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "message_id")
     private int messageId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
 
     private String subject;

@@ -13,11 +13,20 @@ public class Categories {
 
     private String name;
 
-    @OneToMany(mappedBy = "categories", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "categories", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Products> products;
 
-    // Getters and Setters
+    // Default constructor
+    public Categories() {
+    }
+
+    // Parameterized constructor
+    public Categories(String name) {
+        this.name = name;
+    }
+
+    // Getter and setter methods
     public Long getCategoryId() {
         return categoryId;
     }
