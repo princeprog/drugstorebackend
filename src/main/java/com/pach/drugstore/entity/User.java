@@ -1,15 +1,21 @@
 package com.pach.drugstore.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
+@Table(name = "user")
+@JsonPropertyOrder({"userId", "firstname", "lastname", "email", "password", "phone"})
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "user_id")
+    private int userId;
 
     private String firstname;
     private String lastname;
@@ -17,9 +23,14 @@ public class User {
     private String password;
     private String phone;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ContactMessages> contactMessages;
+
+    // Default constructor
     public User() {
     }
 
+    // Parameterized constructor
     public User(String firstname, String lastname, String email, String password, String phone) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -28,12 +39,13 @@ public class User {
         this.phone = phone;
     }
 
-    public int getId() {
-        return id;
+    // Getter and setter methods
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getFirstname() {

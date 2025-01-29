@@ -20,12 +20,12 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public User findUserById(int id) {
-        return userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public User getUserById(int userId) {
+        return userRepo.findById(userId).orElse(null);
     }
 
-    public User updateUser(User updatedUser, int id) {
-        User existingUser = userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public User updateUser(User updatedUser, int userId) {
+        User existingUser = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         existingUser.setFirstname(updatedUser.getFirstname());
         existingUser.setLastname(updatedUser.getLastname());
         existingUser.setEmail(updatedUser.getEmail());
@@ -34,8 +34,8 @@ public class UserService {
         return userRepo.save(existingUser);
     }
 
-    public void deleteUser(int id) {
-        User user = userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public void deleteUser(int userId) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         userRepo.delete(user);
     }
 }

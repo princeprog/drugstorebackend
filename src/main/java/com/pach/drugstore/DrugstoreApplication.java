@@ -8,6 +8,6 @@ public class DrugstoreApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DrugstoreApplication.class, args);
+		System.out.println("Success");
 	}
-
 }

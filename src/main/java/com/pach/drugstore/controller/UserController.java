@@ -25,7 +25,7 @@ public class UserController {
 
     @GetMapping("/getuserbyid/{id}")
     public User findUserById(@PathVariable int id) {
-        return userService.findUserById(id);
+        return userService.getUserById(id);
     }
 
     @PutMapping("/updateuser/{id}")
