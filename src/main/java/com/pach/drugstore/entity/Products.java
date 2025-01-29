@@ -3,6 +3,8 @@ package com.pach.drugstore.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Products {
 
@@ -29,8 +31,10 @@ public class Products {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "categoryId", nullable = false)
-    @JsonBackReference
     private Categories categories;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderDetails> orderDetails;
 
     public Products() {
     }

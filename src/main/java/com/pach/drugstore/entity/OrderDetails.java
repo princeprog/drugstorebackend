@@ -8,15 +8,28 @@ public class OrderDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderDetailId;
-
-    private int orderId;
-
-    @ManyToOne
-    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "productId", nullable = false)
     private Products product;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "orderId", nullable = false)
+    private Order order;
 
     private int quantity;
     private float subtotal;
+
+    // Default constructor
+    public OrderDetails() {
+    }
+
+    // Parameterized constructor
+    public OrderDetails(Products product, int quantity, float subtotal, Order order) {
+        this.product = product;
+        this.quantity = quantity;
+        this.subtotal = subtotal;
+        this.order = order;
+    }
 
     // Getters and setters
     public int getOrderDetailId() {
@@ -25,14 +38,6 @@ public class OrderDetails {
 
     public void setOrderDetailId(int orderDetailId) {
         this.orderDetailId = orderDetailId;
-    }
-
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
     }
 
     public Products getProduct() {
@@ -57,5 +62,13 @@ public class OrderDetails {
 
     public void setSubtotal(float subtotal) {
         this.subtotal = subtotal;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

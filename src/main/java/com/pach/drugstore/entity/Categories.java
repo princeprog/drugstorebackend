@@ -14,7 +14,6 @@ public class Categories {
     private String name;
 
     @OneToMany(mappedBy = "categories", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<Products> products;
 
     // Default constructor

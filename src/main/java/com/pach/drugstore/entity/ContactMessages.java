@@ -9,7 +9,6 @@ public class ContactMessages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int messageId;
-
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "userId", nullable = false)
     private User user;

@@ -28,7 +28,6 @@ public class OrderDetailsService {
     public OrderDetails updateOrderDetails(OrderDetails orderDetails, int id) {
         OrderDetails existingOrderDetails = orderDetailsRepository.findById(id).orElse(null);
         if (existingOrderDetails != null) {
-            existingOrderDetails.setOrderId(orderDetails.getOrderId());
             existingOrderDetails.setProduct(orderDetails.getProduct());
             existingOrderDetails.setQuantity(orderDetails.getQuantity());
             existingOrderDetails.setSubtotal(orderDetails.getSubtotal());
