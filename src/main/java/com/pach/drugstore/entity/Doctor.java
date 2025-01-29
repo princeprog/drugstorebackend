@@ -1,15 +1,14 @@
 package com.pach.drugstore.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "doctor")
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "doctor_id")
+    private int doctorId;
 
     private String name;
     private String email;
@@ -25,6 +24,13 @@ public class Doctor {
         this.specialization = specialization;
     }
 
+    public int getDoctorId() {
+        return doctorId;
+    }
+
+    public void getDoctorId(int userId) {
+        this.doctorId = userId;
+    }
 
     public String getName() {
         return name;
