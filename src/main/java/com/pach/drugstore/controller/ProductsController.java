@@ -51,9 +51,33 @@ public class ProductsController {
         return productsService.findProductById(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PutMapping("/update/{id}")
-    public Products updateProduct(@RequestBody Products updatedProduct, @PathVariable Long id) {
-        return productsService.updateProduct(updatedProduct, id);
+    public Products updateProduct(@PathVariable Long id,
+                                  @RequestParam("genericName") String genericName,
+                                  @RequestParam("brandName") String brandName,
+                                  @RequestParam("dosage") String dosage,
+                                  @RequestParam("description") String description,
+                                  @RequestParam(value = "image", required = false) MultipartFile image,
+                                  @RequestParam("price") int price,
+                                  @RequestParam("quantity") int quantity,
+                                  @RequestParam("group") String group,
+                                  @RequestParam("classification") String classification,
+                                  @RequestParam("categoryId") Long categoryId) throws IOException {
+        Products existingProduct = productsService.findProductById(id);
+        existingProduct.setGenericName(genericName);
+        existingProduct.setBrandName(brandName);
+        existingProduct.setDosage(dosage);
+        existingProduct.setDescription(description);
+        if (image != null && !image.isEmpty()) {
+            existingProduct.setImage(image.getBytes());
+        }
+        existingProduct.setPrice(price);
+        existingProduct.setQuantity(quantity);
+        existingProduct.setGroup(group);
+        existingProduct.setClassification(classification);
+        existingProduct.setCategories(productsService.findCategoryById(categoryId));
+        return productsService.updateProduct(existingProduct, id);
     }
 
     @DeleteMapping("/delete/{id}")

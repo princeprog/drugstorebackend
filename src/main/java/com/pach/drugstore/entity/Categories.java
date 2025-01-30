@@ -1,5 +1,6 @@
 package com.pach.drugstore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
@@ -14,6 +15,7 @@ public class Categories {
     private String name;
 
     @OneToMany(mappedBy = "categories", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("categories")
     private List<Products> products;
 
     // Default constructor
