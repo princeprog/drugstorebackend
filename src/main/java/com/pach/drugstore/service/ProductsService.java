@@ -49,4 +49,8 @@ public class ProductsService {
         Optional<Categories> category = categoriesRepository.findById(id);
         return category.orElse(null);
     }
+
+    public List<Products> findProductsByStartingLetter(String letter) {
+        return productsRepository.findByGenericNameStartingWith(letter);
+    }
 }

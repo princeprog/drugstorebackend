@@ -18,7 +18,7 @@ public class Products {
     private String description;
 
     @Lob
-    @Column(columnDefinition = "BLOB", nullable = true)
+    @Column(columnDefinition = "LONGBLOB", nullable = true)
     private byte[] image;
 
     private int price;
