@@ -12,7 +12,16 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
-    public User saveUser(User user) {
+    public User saveUser(User user) throws Exception {
+        if (userRepo.existsByEmail(user.getEmail())) {
+            throw new Exception("Email is already taken. Please choose a different email.");
+        }
+
+        // Check if the phone number already exists
+        if (userRepo.existsByPhone(user.getPhone())) {
+            throw new Exception("Phone Number is already taken. Please choose a different Phone Number.");
+        }
+
         return userRepo.save(user);
     }
 
@@ -37,5 +46,13 @@ public class UserService {
     public void deleteUser(int userId) {
         User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         userRepo.delete(user);
+    }
+
+    public User getUserByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
+
+    public User getUserByPhone(String phone) {
+        return userRepo.findByPhone(phone);
     }
 }
