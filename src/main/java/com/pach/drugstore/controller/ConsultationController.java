@@ -37,4 +37,10 @@ public class ConsultationController {
     public void deleteConsultation(@PathVariable long id) {
         consultationService.deleteConsultation(id);
     }
+
+    // New endpoint to fetch booked times by consultation date
+    @GetMapping("/getBookedTimes/{date}")
+    public List<String> getBookedTimes(@PathVariable String date) {
+        return consultationService.getBookedTimesByDate(date);
+    }
 }

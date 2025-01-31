@@ -1,5 +1,6 @@
 package com.pach.drugstore.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -12,8 +13,8 @@ public class Consultation {
     private Long consultationId;
 
     private Date consultationDate;
+    @JsonFormat(pattern = "HH:mm:ss")
     private Time consultationTime;
-
     private String googleMeetLink;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -59,5 +60,13 @@ public class Consultation {
 
     public void setGoogleMeetLink(String googleMeetLink) {
         this.googleMeetLink = googleMeetLink;
+    }
+
+    public User getUser(){
+        return user;
+    }
+
+    public void setUser(User user){
+        this.user = user;
     }
 }
