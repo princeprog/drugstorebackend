@@ -1,7 +1,6 @@
 package com.pach.drugstore.entity;
 
 import jakarta.persistence.*;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class OrderDetails {
