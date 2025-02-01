@@ -33,15 +33,38 @@ public class UserService {
         return userRepo.findById(userId).orElse(null);
     }
 
-    public User updateUser(User updatedUser, int userId) {
-        User existingUser = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        existingUser.setFirstname(updatedUser.getFirstname());
-        existingUser.setLastname(updatedUser.getLastname());
-        existingUser.setEmail(updatedUser.getEmail());
-        existingUser.setPassword(updatedUser.getPassword());
-        existingUser.setPhone(updatedUser.getPhone());
+    public User updateUser(User updatedUser, int id) throws Exception {
+        User existingUser = userRepo.findById(id).orElseThrow(() -> new Exception("User not found"));
+
+        // Only check for email conflict if the email is updated
+        if (updatedUser.getEmail() != null && !updatedUser.getEmail().equals(existingUser.getEmail())) {
+            User userWithSameEmail = userRepo.findByEmail(updatedUser.getEmail());
+            if (userWithSameEmail != null) {
+                throw new Exception("Email is already taken. Please choose a different email.");
+            }
+            existingUser.setEmail(updatedUser.getEmail());
+        }
+
+        // Only update phone number if it's different
+        if (updatedUser.getPhone() != null && !updatedUser.getPhone().equals(existingUser.getPhone())) {
+            existingUser.setPhone(updatedUser.getPhone());
+        }
+
+        // Update other fields (if provided)
+        if (updatedUser.getFirstname() != null) {
+            existingUser.setFirstname(updatedUser.getFirstname());
+        }
+        if (updatedUser.getLastname() != null) {
+            existingUser.setLastname(updatedUser.getLastname());
+        }
+        if (updatedUser.getPassword() != null) {
+            existingUser.setPassword(updatedUser.getPassword()); // You can add password hashing here
+        }
+
+        // Save updated user
         return userRepo.save(existingUser);
     }
+
 
     public void deleteUser(int userId) {
         User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
