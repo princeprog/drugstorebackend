@@ -10,4 +10,7 @@ import java.util.List;
 public interface ProductsRepo extends JpaRepository<Products, Long> {
     @Query("SELECT p FROM Products p WHERE p.genericName LIKE :letter%")
     List<Products> findByGenericNameStartingWith(@Param("letter") String letter);
+
+    @Query("SELECT p FROM Products p WHERE p.genericName LIKE %:searchTerm%")
+    List<Products> findByGenericNameContaining(@Param("searchTerm") String searchTerm);
 }

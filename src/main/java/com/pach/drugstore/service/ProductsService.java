@@ -50,6 +50,10 @@ public class ProductsService {
         return category.orElse(null);
     }
 
+    public List<Products> findProductsBySearchTerm(String searchTerm) {
+        return productsRepository.findByGenericNameContaining(searchTerm);
+    }
+
     public List<Products> findProductsByStartingLetter(String letter) {
         return productsRepository.findByGenericNameStartingWith(letter);
     }

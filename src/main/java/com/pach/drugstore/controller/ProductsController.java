@@ -105,6 +105,11 @@ public class ProductsController {
         productsService.deleteProduct(id);
     }
 
+    @GetMapping("/search")
+    public List<Products> findProductsBySearchTerm(@RequestParam String searchTerm) {
+        return productsService.findProductsBySearchTerm(searchTerm);
+    }
+
     @GetMapping("/getbystartingletter/{letter}")
     public List<Products> findProductsByStartingLetter(@PathVariable String letter) {
         return productsService.findProductsByStartingLetter(letter);
