@@ -28,6 +28,11 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Consultation> consultations;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cart> cart;
+
+
+
     // Default constructor
     public User() {
     }
