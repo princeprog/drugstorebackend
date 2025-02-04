@@ -34,4 +34,14 @@ public class CartController {
         cartService.deleteCart(cartId);
         return "Cart deleted successfully";
     }
+
+    @GetMapping("/user")
+    public List<Cart> getCartByUserEmail(@RequestParam String email) {
+        return cartService.getCartByUserEmail(email);
+    }
+
+    @GetMapping("/count")
+    public long countCartByUserEmail(@RequestParam String email) {
+        return cartService.countCartByUserEmail(email);
+    }
 }

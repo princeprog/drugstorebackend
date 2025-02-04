@@ -29,4 +29,12 @@ public class CartService {
         existingCart.setQuantity(cart.getQuantity());
         return cartRepo.save(existingCart);
     }
+
+    public List<Cart> getCartByUserEmail(String email) {
+        return cartRepo.findByUserEmail(email);
+    }
+
+    public long countCartByUserEmail(String email) {
+        return cartRepo.countByUserEmail(email);
+    }
 }
