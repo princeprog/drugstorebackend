@@ -3,6 +3,8 @@ package com.pach.drugstore.controller;
 import com.pach.drugstore.entity.Consultation;
 import com.pach.drugstore.service.ConsultationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,9 +36,19 @@ public class ConsultationController {
     }
 
     @DeleteMapping("/deleteconsultation/{id}")
-    public void deleteConsultation(@PathVariable long id) {
-        consultationService.deleteConsultation(id);
+    public ResponseEntity<String> deleteConsultation(@PathVariable Long id) {
+        if (id == null) {
+            return ResponseEntity.badRequest().body("Invalid booking ID");
+        }
+
+        try {
+            consultationService.deleteConsultation(id);
+            return ResponseEntity.ok("Booking deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting booking");
+        }
     }
+
 
     // New endpoint to fetch booked times by consultation date
     @GetMapping("/getBookedTimes/{date}")
