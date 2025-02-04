@@ -7,7 +7,7 @@ import com.pach.drugstore.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +56,9 @@ public class ConsultationService {
     }
 
     public List<String> getBookedTimesByDate(String date) {
-        List<Consultation> consultations = consultationRepo.findByConsultationDate(Date.valueOf(date));
+        // Convert the date from string to LocalDate
+        LocalDate localDate = LocalDate.parse(date); // Assuming date is in 'YYYY-MM-DD' format
+        List<Consultation> consultations = consultationRepo.findByConsultationDate(localDate);
         List<String> bookedTimes = new ArrayList<>();
 
         for (Consultation consultation : consultations) {
